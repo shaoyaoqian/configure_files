@@ -1,0 +1,30 @@
+
+# mesh:0.0 : install dependencies
+# sudo docker build . -t mesh:0.1
+# FROM ubuntu:22.04
+# ADD pip.conf /root/.pip/pip.conf
+# ADD ./sources.list /etc/apt/sources.list
+# RUN apt-get update
+# RUN apt-get dist-upgrade
+# RUN apt-get install -y libdolfinx-dev ninja-build git
+
+# FROM mesh:0.0
+# mesh:0.1
+# ADD . /root
+# WORKDIR /root
+# RUN cd $HOME/xtl/ && cmake . && make install
+# RUN cd $HOME/xtensor/ && cmake . && make install
+
+# build ufl basix ffcx
+# mesh:0.2
+# FROM mesh:0.1
+# RUN cd $HOME/ufl/ && pip install .
+# RUN cd $HOME/basix/ && pip install .
+# RUN cd $HOME/ffcx/ && pip install .
+
+# mesh:0.3
+FROM mesh:0.2
+RUN cd $HOME/dolfinx/cpp/ && mkdir build && cd build && cmake .. && make -j8 install
+
+
+
